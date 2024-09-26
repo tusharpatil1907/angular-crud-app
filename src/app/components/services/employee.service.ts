@@ -30,11 +30,12 @@ export class EmployeeService {
 }
 
   user!:object
+  
   getuser(id:number) {
 
     this.http.get(`${this.api}/${id}`).subscribe(
       res => {
-        debugger
+        // debugger
         this.user = res;
         console.log("called")
       },  

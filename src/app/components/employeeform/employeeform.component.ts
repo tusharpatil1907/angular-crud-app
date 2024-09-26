@@ -30,22 +30,18 @@ export class EmployeeformComponent implements OnInit {
     this.employeeForm.reset(); 
   }
 
-  // @Input() employeeToEdit: any; // Receive the employee data for editing
-  // if (this.employeeToEdit) {
-  //   // this.employeeForm.patchValue(this.employeeToEdit); // Populate the form for editing
-  // }
+
   ngOnInit(): void {
+    this.emp.getuser
+
+  }
+  
+  
+  
+  ngAfterContentInit(){
    
-  }
-  ngOnChanges(){
-    // if (this.emp.user) {
-    //   console.log(this.emp.user);
-    // } else {
-    //   console.log('User data is not available.');
-    // } // Check if user data is available
-  }
-
-
+    
+    }
 }
 
 
