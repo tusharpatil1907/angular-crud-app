@@ -1,0 +1,56 @@
+<div class="row justify-content-center mt-5 ">
+    <div class="col-sm-8">
+
+        <form class="row g-3 needs-validation" [formGroup]="employeeForm">
+            <div class="col-md-2">
+                <label for="validationCustom01" class="form-label">Employee ID</label>
+                <input type="number" class="form-control" id="validationCustom01" placeholder="id" formControlName="id" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-5">
+                <label for="validationCustom01" class="form-label">Name</label>
+                <input type="text" class="form-control" id="validationCustom01" placeholder="Name" formControlName="name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-5">
+                <label for="validationCustom02" class="form-label">Email</label>
+                <input type="email" class="form-control"  id="validationCustom02" placeholder="Email" formControlName="email" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="validationCustom03" class="form-label">City</label>
+                <input type="text" class="form-control" id="validationCustom03" placeholder="city" formControlName="city" required>
+                <div class="invalid-feedback">
+                    Please provide a valid city.
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="validationCustom04" class="form-label" >State</label>
+                <select class="form-select" id="validationCustom04" formControlName="state" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option>...</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid state.
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="validationCustom05" class="form-label"  >Zip</label>
+                <input type="text" class="form-control" id="validationCustom05" formControlName="zip" required>
+                <div class="invalid-feedback">
+                    Please provide a valid zip.
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" (click)="submit()" type="submit">Submit form</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="row justify-content-center mt-5">
+    <div class="col-sm-10">
+
+        
+        <table class="table">
+            <thead>
+                <tr class="table-active">
+                    <th>id</th>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>city</td>
+                    <td>state</td>
+                    <td>zip</td>
+                    <td>Action <button (click)="getDetail()" >refresh</button></td>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of employeeDetail; track $index) {
+
+                    <tr>
+                        <th>{{item.id}}</th>
+                        <td>{{item.name}}</td>          
+                        <td>{{item.email}}</td>
+                        <td>{{item.city}}</td>
+                        <td>{{item.state}}</td>
+                        <td>{{item.zip}}</td>
+                        <td>
+                            <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
+                            <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
+                            <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                            <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i class="bi bi-trash-fill text-danger"></i></a>
+                        </td>
+                    </tr>
+                }
+
+                
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <!-- {{employeeDetail| json}} -->
