@@ -1,9 +1,9 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { EmployeeService } from '../services/employee.service';
-import { User } from '../employeeform/employeeform.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { JsonPipe } from '@angular/common';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-employeelist',
@@ -15,48 +15,36 @@ import { JsonPipe } from '@angular/common';
 export class EmployeelistComponent implements OnInit {
 
   employeeDetail: any
-  @Output() employeeSelected = new EventEmitter<any>();
-  constructor(private emp: EmployeeService, private http: HttpClient) { }
 
-ngOnInit(): void {
-      
-    this.getDetail()
+  constructor(private EmployeeService: EmployeeService, private http: HttpClient) { }
 
-}
-
-senduserId(id:number){
-  this.emp.getuser(id)
-
-}
-
-getDetail(){
-  this.emp.getDetail()
-  this.employeeDetail = this.emp.empdata;
-}
-  // getDetail() {
-
-  //     this.http.get(this.emp.api).subscribe(
-  //       res => {
-  //         this.employeeDetail = res;
-          
-  //       },  
-  //       error => {
-  //         console.error('Error fetching employee data', error);
-  //       }
-  //     );
+  ngOnInit(): void {
+    this.EmployeeService.getData().subscribe((resp: any) => {
+      console.log(resp);
+      this.employeeDetail = resp;
+    });
     
-  
-  // }
+  }
 
-  deleteEmployee(id: number): void {
-    this.emp.deleteEmployee(id);
+  senduserId(id: string) {
+    this.EmployeeService.setId(id)
+  }
+  
+  
+
+  deleteEmployee(id: string): void {
+    this.EmployeeService.deleteEmployee(id).subscribe(res=>{
+      console.log('done')
+    },error=>{
+      console.log(error )
+    });
     this.employeeDetail = this.employeeDetail.filter((employee: any) => employee.id !== id); // Update the UI
   }
 
-
-
-
-  editEmployee(employee: any): void {
-    this.employeeSelected.emit(employee); // Emit selected employee to parent
+  getonevent(){
+    this.EmployeeService.getData().subscribe(res=>{
+      this.employeeDetail = res;
+    })
   }
+
 }

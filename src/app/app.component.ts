@@ -19,4 +19,7 @@ export class AppComponent {
   onEmployeeSelect(employee: any) {
     this.selectedEmployee = employee;
   }
+
+
+  
 }
