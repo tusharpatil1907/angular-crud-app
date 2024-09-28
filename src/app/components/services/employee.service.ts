@@ -21,7 +21,7 @@ export class EmployeeService {
     return this.http.get<User>(this.api+id)
   }
 
- 
+
 
   id!: string;
   private callback: () => void = () => {}; 
@@ -35,14 +35,10 @@ export class EmployeeService {
     this.callback(); 
   }
 
-
   registerCallback(callback: () => void) {
     this.callback = callback; 
 
   }
-
-
-
 
   setData(form: FormGroup) {
     const employeeForm = form.value;
@@ -59,5 +55,8 @@ export class EmployeeService {
     return this.http.delete(`${this.api}${id}`)
 
   }
+
+
+
 
 }

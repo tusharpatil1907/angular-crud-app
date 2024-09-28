@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { EmployeeService } from '../services/employee.service';
 import { CommonModule } from '@angular/common';
@@ -18,19 +18,25 @@ export class EmployeeformComponent implements OnInit {
   user!: User;
   constructor(private http: HttpClient, private fb: FormBuilder, private emp: EmployeeService) {
     this.employeeForm = this.fb.group({
-      id: ['', Validators.required],
+      id: [this.generateId(), Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', [Validators.required, Validators.pattern('^[1-9][0-9]{5}$')]], // Indian PIN code validation
     });
-
+    
   }
-
   
-
+  
+  @Output() triggerApiCall = new EventEmitter();
+  
+  onClick() {
+    this.triggerApiCall.emit();
+    // console.log('emitted')
+  }
   submit() {
+    // const id = this.generateId();
     this.markAllAsTouched(this.employeeForm);
     if (this.employeeForm.valid) {
       const employee = this.employeeForm
@@ -40,11 +46,11 @@ export class EmployeeformComponent implements OnInit {
         
       }
       else {
-       
+        
         this.updateUser(this.user.id);
     
     }
-
+    this.onClick() 
       // this.emp.getData().subscribe(resp => {
       //   console.log('done:', resp)
       // })
@@ -80,7 +86,8 @@ disableForm(){
 
   ngOnInit(): void {
 
-
+    
+    this. disableForm()
     this.emp.registerCallback(() => {
       const data = this.emp.getId();
       this.userid = data;
@@ -102,7 +109,7 @@ disableForm(){
 
     this.http.put<User>(api, updatedUser).subscribe(
       res => {
-        console.log("updated", res);
+         console.log("updated",res);
         
       },
       error => {
@@ -120,6 +127,7 @@ disableForm(){
   }
 
 
+
   private markAllAsTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(controlName => {
       const control: any = formGroup.get(controlName);
@@ -129,11 +137,15 @@ disableForm(){
       control.markAsTouched();
     });
   }
+  generateId(){
+    let id:number ;
+    id = Math.floor(Math.random()*1000)
+    id.toString()
+    return id
+  }
 
+  
 }
-
-
-
 
 export interface User {
   id: string,

@@ -12,7 +12,8 @@
     </div>
   </div>
 </nav>
-
-<app-employeeform ></app-employeeform>
-<app-employeelist></app-employeelist>
-<router-outlet />
+<!-- (triggerApiCall)="onTriggerApiCall()" -->
+<app-employeeform (triggerApiCall)="onTriggerApiCall()" ></app-employeeform>
+<app-employeelist  ></app-employeelist>
+<router-outlet   />
+<!-- (callApiEvent)="onTriggerApiCall()" -->
