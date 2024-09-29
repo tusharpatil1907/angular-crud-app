@@ -15,10 +15,10 @@ export class AppComponent {
   title = 'employee-app';
 
   @ViewChild(EmployeelistComponent) listcall!: EmployeelistComponent;
+  triggerApiCall: boolean = false;  // Initially false
 
-  onTriggerApiCall() {
-    this.listcall.callApi();
+  handleChild1Event() {
+    console.log('Event received from Child 1');
+    this.triggerApiCall = true;  // Set to true when Child 1 event is triggered
   }
-  
-  
 }

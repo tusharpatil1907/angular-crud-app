@@ -3,13 +3,12 @@ import { User } from '../employeeform/employeeform.component';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
   api: string = "http://localhost:3000/Employees/"
-  empdata:any;
+  empdata!:FormGroup;
   formval!: object
   constructor(private http: HttpClient ) {}
 
@@ -20,8 +19,6 @@ export class EmployeeService {
     console.log(this.api)
     return this.http.get<User>(this.api+id)
   }
-
-
 
   id!: string;
   private callback: () => void = () => {}; 
@@ -47,16 +44,11 @@ export class EmployeeService {
         console.log(res)
       })
     }
-   
-
   }
 
   deleteEmployee(id: string) {
     return this.http.delete(`${this.api}${id}`)
 
-  }
-
-
-
+  } 
 
 }

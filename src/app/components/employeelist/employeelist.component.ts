@@ -24,9 +24,10 @@ export class EmployeelistComponent implements OnInit,OnChanges {
       this.employeeDetail = resp;
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes:any): void {
     if (changes['triggerApiCall'] && changes['triggerApiCall'].currentValue) {
-      this.callApi();
+      console.log(changes)
+      this.callApi();  // Trigger API call on input change
     }
   }
 
@@ -44,6 +45,11 @@ export class EmployeelistComponent implements OnInit,OnChanges {
     });
   }
 
+  //calling from employee submit
+  // executeMethod() {
+  //   this.callApi()
+  //   console.log("Method in Child 2 has been called!");
+  // }
   deleteEmployee(id: string): void {
     this.EmployeeService.deleteEmployee(id).subscribe(res=>{
       console.log('done')
@@ -58,5 +64,10 @@ export class EmployeelistComponent implements OnInit,OnChanges {
       this.employeeDetail = res;
     })
   }
+
+
+
+
+  
 
 }

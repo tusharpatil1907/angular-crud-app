@@ -27,13 +27,26 @@ export class EmployeeformComponent implements OnInit {
     });
     
   }
+
+  ngOnInit(): void {
+
+    
+    this.disableForm()
+    this.emp.registerCallback(() => {
+      const data = this.emp.getId();
+      this.userid = data;
+      this.getuser(this.userid);
+
+    });
+
+  }
   
   
-  @Output() triggerApiCall = new EventEmitter();
+  @Output() sendToParent = new EventEmitter();
   
   onClick() {
-    this.triggerApiCall.emit();
-    // console.log('emitted')
+    this.sendToParent.emit();
+    console.log('emitted')
   }
   submit() {
     // const id = this.generateId();
@@ -50,11 +63,7 @@ export class EmployeeformComponent implements OnInit {
         this.updateUser(this.user.id);
     
     }
-    this.onClick() 
-      // this.emp.getData().subscribe(resp => {
-      //   console.log('done:', resp)
-      // })
-      
+      this.onClick()       
       this.employeeForm.reset();
 
     }
@@ -84,18 +93,7 @@ disableForm(){
 
 
 
-  ngOnInit(): void {
-
-    
-    this. disableForm()
-    this.emp.registerCallback(() => {
-      const data = this.emp.getId();
-      this.userid = data;
-      this.getuser(this.userid);
-
-    });
-
-  }
+ 
 
   updateUser(id: string) {
     const api: string = `http://localhost:3000/Employees/${id}`;
