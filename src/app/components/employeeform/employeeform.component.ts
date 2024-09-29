@@ -16,18 +16,24 @@ export class EmployeeformComponent implements OnInit {
   userid!: string
   usertoedit!: void
   user!: User;
+  randomId = this.generateId()
+
   constructor(private http: HttpClient, private fb: FormBuilder, private emp: EmployeeService) {
+    
+    this.generateForm()
+  }
+
+  generateForm(){
     this.employeeForm = this.fb.group({
-      id: [this.generateId(), Validators.required],
+      id: [{value:this.randomId, disabled:true}, Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', [Validators.required, Validators.pattern('^[1-9][0-9]{5}$')]], // Indian PIN code validation
     });
-    
-  }
 
+  }
   ngOnInit(): void {
 
     
@@ -64,8 +70,8 @@ export class EmployeeformComponent implements OnInit {
     
     }
       this.onClick()       
-      this.employeeForm.reset();
-
+      // this.employeeForm.reset();
+      this.generateForm()
     }
   }
 
@@ -92,9 +98,6 @@ disableForm(){
   }
 
 
-
- 
-
   updateUser(id: string) {
     const api: string = `http://localhost:3000/Employees/${id}`;
     const updatedUser = {
@@ -113,7 +116,6 @@ disableForm(){
       error => {
         console.error('Error updating employee data', error);
       }
-      
     );
     this.emp.getData().subscribe(resp => {
           console.log('Updated list after updating:', resp);
@@ -123,9 +125,6 @@ disableForm(){
       });
   
   }
-
-
-
   private markAllAsTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(controlName => {
       const control: any = formGroup.get(controlName);
@@ -140,9 +139,7 @@ disableForm(){
     id = Math.floor(Math.random()*1000)
     id.toString()
     return id
-  }
-
-  
+  } 
 }
 
 export interface User {
