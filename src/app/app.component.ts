@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'employee-app';
-
+id!:string|number
   triggerApiCall: boolean = false;  
 
   handleChild1Event() {
@@ -22,6 +22,10 @@ export class AppComponent {
   }
 
   onDataFetched() {
-   
     this.triggerApiCall = false; }
+  
+
+  callId(id:string|number){
+    this.id = id
+  }
 }

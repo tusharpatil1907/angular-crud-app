@@ -30,23 +30,31 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   //     this.callApi();  // Trigger API call on input change
   //   }
   // }
-  @Output() dataFetched = new EventEmitter<void>();
+
+
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['triggerApiCall'] && this.triggerApiCall) {
-      this.callandReset()
+    if (changes['triggerApiCall'].currentValue && this.triggerApiCall) {
+      this.callApi();
     }
+    this.resetTrigger()
   }
-
-
-
-
-
-
-
-
-
-  callandReset() {
-    this.callApi();
+  
+  
+  
+  
+  
+  
+  callApi() {
+    this.EmployeeService.getData().subscribe((resp: any) => {
+      console.log(resp);
+      this.employeeDetail = resp;
+    });
+  }
+  
+  
+  
+  @Output() dataFetched = new EventEmitter<void>();
+  resetTrigger() {
     this.dataFetched.emit();
     this.triggerApiCall = false
   }
@@ -55,12 +63,6 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   }
 
 
-  callApi() {
-    this.EmployeeService.getData().subscribe((resp: any) => {
-      console.log(resp);
-      this.employeeDetail = resp;
-    });
-  }
 
   //calling from employee submit
   // executeMethod() {
@@ -81,10 +83,5 @@ export class EmployeelistComponent implements OnInit, OnChanges {
       this.employeeDetail = res;
     })
   }
-
-
-
-
-
 
 }

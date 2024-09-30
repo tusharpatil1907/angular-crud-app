@@ -13,7 +13,7 @@
   </div>
 </nav>
 <!-- (triggerApiCall)="onTriggerApiCall()" -->
-<app-employeeform (sendToParent)="handleChild1Event()" ></app-employeeform>
+<app-employeeform (sendToParent)="handleChild1Event()"    ></app-employeeform>
 <app-employeelist [triggerApiCall]="triggerApiCall" (dataFetched)="onDataFetched()"></app-employeelist>
 <router-outlet   />
 <!-- (callApiEvent)="onTriggerApiCall()" -->

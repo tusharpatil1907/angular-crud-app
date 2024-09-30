@@ -1,13 +1,13 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { EmployeeService } from '../services/employee.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-employeeform',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './employeeform.component.html',
   styleUrl: './employeeform.component.css'
 })
@@ -16,67 +16,93 @@ export class EmployeeformComponent implements OnInit {
   userid!: string
   usertoedit!: void
   user!: User;
-  randomId = this.generateId()
-
+  randomId:number|string = this.generateId()
   constructor(private http: HttpClient, private fb: FormBuilder, private emp: EmployeeService) {
 
-    this.generateForm()
+    
   }
 
   generateForm() {
+    
     this.employeeForm = this.fb.group({
-      id: [{ value: this.randomId, disabled: true }, Validators.required],
+      id: [this.randomId+this.substring, Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', [Validators.required, Validators.pattern('^[1-9][0-9]{5}$')]], // Indian PIN code validation
     });
-
+    
   }
+  substring!:string
   ngOnInit(): void {
-
-
-    this.disableForm()
+    this.generateForm()   
+    // this.disableForm()
     this.emp.registerCallback(() => {
       const data = this.emp.getId();
       this.userid = data;
       this.getuser(this.userid);
-
+      
     });
 
+    this.employeeForm.get('email')?.valueChanges.subscribe(email => {
+      this.substring = this.substr(email);
+
+       this.employeeForm.patchValue({
+            id: this.randomId + this.substring.substring(0, 3)
+        }, { emitEvent: false });
+    });
+    
+    
   }
 
 
-  @Output() sendToParent = new EventEmitter();
+  generateId():string|number {
 
-  // onClick() {
-  //   this.sendToParent.emit();
-  //   console.log('emitted')
-  // }
+    let id: number| string;
+    id = Math.floor(Math.random() * 1000).toString()
+
+    return id
+  }
+
+  substr(email:string){
+    console.log('called')
+    return email.substring(0,3)
+  }
+  
+  
+  
+  
+  @Output() sendToParent = new EventEmitter();
+  
   submit() {
-    // const id = this.generateId();
+
     this.markAllAsTouched(this.employeeForm);
     if (this.employeeForm.valid) {
+
+      this.employeeForm.patchValue({id: this.randomId+ this.substring.substring(0,3)})
+
       const employee = this.employeeForm
       console.log(this.employeeForm.value)
       if (!this.user) {
-        this.emp.setData(employee) //add new data 
+
+        this.emp.setData(employee) 
       }
       else {
         this.updateUser(this.user.id);
       }
-      this.sendToParent.emit();
-      // this.onClick()       
+      this.sendToParent.emit();      
       this.employeeForm.reset();
       this.generateForm()
+      this.randomId = this.generateId()
     }
+
   }
 
 
 
   disableForm() {
-    this.employeeForm.get('id')?.disable(); // Disable the 'id' field
+    this.employeeForm.get('id')?.disable(); 
   }
 
 
@@ -84,8 +110,8 @@ export class EmployeeformComponent implements OnInit {
     this.emp.getUser(id).subscribe(
       res => {
         this.user = res;
-        //patchvalue automatically push thevalue of object into form 
-        this.employeeForm.patchValue(this.user); // This will set all fields correctly
+       
+        this.employeeForm.patchValue(this.user);
         this.disableForm()
       },
       error => {
@@ -117,7 +143,7 @@ export class EmployeeformComponent implements OnInit {
     );
     this.emp.getData().subscribe(resp => {
       console.log('Updated list after updating:', resp);
-      this.employeeForm.reset(); // Reset the form after successful submission
+      this.employeeForm.reset(); 
     }, error => {
       console.error('Error fetching updated list:', error);
     });
@@ -132,12 +158,8 @@ export class EmployeeformComponent implements OnInit {
       control.markAsTouched();
     });
   }
-  generateId() {
-    let id: number;
-    id = Math.floor(Math.random() * 1000)
-    id.toString()
-    return id
-  }
+
+ 
 }
 
 export interface User {
