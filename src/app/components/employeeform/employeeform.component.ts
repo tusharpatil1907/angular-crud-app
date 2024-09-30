@@ -19,13 +19,13 @@ export class EmployeeformComponent implements OnInit {
   randomId = this.generateId()
 
   constructor(private http: HttpClient, private fb: FormBuilder, private emp: EmployeeService) {
-    
+
     this.generateForm()
   }
 
-  generateForm(){
+  generateForm() {
     this.employeeForm = this.fb.group({
-      id: [{value:this.randomId, disabled:true}, Validators.required],
+      id: [{ value: this.randomId, disabled: true }, Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       city: ['', Validators.required],
@@ -36,7 +36,7 @@ export class EmployeeformComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    
+
     this.disableForm()
     this.emp.registerCallback(() => {
       const data = this.emp.getId();
@@ -46,14 +46,14 @@ export class EmployeeformComponent implements OnInit {
     });
 
   }
-  
-  
+
+
   @Output() sendToParent = new EventEmitter();
-  
-  onClick() {
-    this.sendToParent.emit();
-    console.log('emitted')
-  }
+
+  // onClick() {
+  //   this.sendToParent.emit();
+  //   console.log('emitted')
+  // }
   submit() {
     // const id = this.generateId();
     this.markAllAsTouched(this.employeeForm);
@@ -62,24 +62,22 @@ export class EmployeeformComponent implements OnInit {
       console.log(this.employeeForm.value)
       if (!this.user) {
         this.emp.setData(employee) //add new data 
-        
       }
       else {
-        
         this.updateUser(this.user.id);
-    
-    }
-      this.onClick()       
-      // this.employeeForm.reset();
+      }
+      this.sendToParent.emit();
+      // this.onClick()       
+      this.employeeForm.reset();
       this.generateForm()
     }
   }
 
 
 
-disableForm(){
-  this.employeeForm.get('id')?.disable(); // Disable the 'id' field
-}
+  disableForm() {
+    this.employeeForm.get('id')?.disable(); // Disable the 'id' field
+  }
 
 
   getuser(id: string) {
@@ -110,20 +108,20 @@ disableForm(){
 
     this.http.put<User>(api, updatedUser).subscribe(
       res => {
-         console.log("updated",res);
-        
+        console.log("updated", res);
+
       },
       error => {
         console.error('Error updating employee data', error);
       }
     );
     this.emp.getData().subscribe(resp => {
-          console.log('Updated list after updating:', resp);
-          this.employeeForm.reset(); // Reset the form after successful submission
-      }, error => {
-          console.error('Error fetching updated list:', error);
-      });
-  
+      console.log('Updated list after updating:', resp);
+      this.employeeForm.reset(); // Reset the form after successful submission
+    }, error => {
+      console.error('Error fetching updated list:', error);
+    });
+
   }
   private markAllAsTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(controlName => {
@@ -134,12 +132,12 @@ disableForm(){
       control.markAsTouched();
     });
   }
-  generateId(){
-    let id:number ;
-    id = Math.floor(Math.random()*1000)
+  generateId() {
+    let id: number;
+    id = Math.floor(Math.random() * 1000)
     id.toString()
     return id
-  } 
+  }
 }
 
 export interface User {

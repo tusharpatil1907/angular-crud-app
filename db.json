@@ -1,76 +1,44 @@
 {
   "Employees": [
     {
-      "id": "55f5",
-      "name": "tushar",
-      "email": "tp36213@gmail.com",
-      "city": "sfhkafaf",
+      "id": "b0c9",
+      "name": "sdfsdf",
+      "email": "dsfsd@dsf",
+      "city": "435435",
       "state": "...",
-      "zip": "234332"
+      "zip": "324343"
     },
     {
-      "name": "ksdksassj",
-      "email": "349@dfka",
-      "city": "askdjk",
+      "id": "7fd6",
+      "name": "asdsa",
+      "email": "asdaswqe@sf",
+      "city": "fdfsdf",
       "state": "...",
-      "zip": "232434",
-      "id": "348a"
+      "zip": "322434"
     },
     {
-      "name": "tushar",
-      "email": "tp2321@gmail.com",
-      "city": "Shahada",
-      "state": "...",
-      "zip": "425409",
-      "id": "a8d9"
-    },
-    {
-      "id": "2ba4",
-      "name": "dsfds",
-      "email": "ddsfdsf@234",
-      "city": "fdffsdfsd",
-      "state": "...",
-      "zip": "111111"
-    },
-    {
-      "id": "cc45",
-      "name": "tushar",
-      "email": "tp36213@gmail.com",
-      "city": "shahshajfhjdhaskjfhkalehqkld",
-      "state": "...",
-      "zip": "123223"
-    },
-    {
-      "id": "3f69",
-      "name": "tushar",
-      "email": "afjakhfklafhkl@gmail.com",
-      "city": "tushar",
-      "state": "...",
-      "zip": "112233"
-    },
-    {
-      "id": "533a",
-      "name": "tushar",
-      "email": "djfhsklf@gmail.com",
-      "city": "skaldjkl",
-      "state": "...",
-      "zip": "329489"
-    },
-    {
-      "id": "0a72",
-      "name": "sadasd",
-      "email": "sadsad@dsf",
-      "city": "ssadad",
+      "id": "9980",
+      "name": "234234",
+      "email": "32432@dd",
+      "city": "34324",
       "state": "...",
       "zip": "324334"
     },
     {
-      "id": "7044",
-      "name": "qweqwkel",
-      "email": "ksaljakl@aas",
-      "city": "ksdjaskd",
+      "id": "55b8",
+      "name": "23432",
+      "email": "23423@dfgdfg",
+      "city": "234234",
       "state": "...",
-      "zip": "233324"
+      "zip": "324324"
+    },
+    {
+      "id": "4c72",
+      "name": "tushar",
+      "email": "tp3234@gmail.com",
+      "city": "shahada",
+      "state": "...",
+      "zip": "129389"
     }
   ]
 }

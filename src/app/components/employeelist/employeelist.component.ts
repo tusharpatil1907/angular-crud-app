@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './employeelist.component.html',
   styleUrl: './employeelist.component.css'
 })
-export class EmployeelistComponent implements OnInit,OnChanges {
+export class EmployeelistComponent implements OnInit, OnChanges {
   @Input() triggerApiCall: boolean = false;
   employeeDetail: any
 
@@ -24,21 +24,38 @@ export class EmployeelistComponent implements OnInit,OnChanges {
       this.employeeDetail = resp;
     });
   }
-  ngOnChanges(changes:any): void {
-    if (changes['triggerApiCall'] && changes['triggerApiCall'].currentValue) {
-      console.log(changes)
-      this.callApi();  // Trigger API call on input change
+  // ngOnChanges(changes:any): void {
+  //   if (changes['triggerApiCall'] && changes['triggerApiCall'].currentValue) {
+  //     console.log(changes)
+  //     this.callApi();  // Trigger API call on input change
+  //   }
+  // }
+  @Output() dataFetched = new EventEmitter<void>();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['triggerApiCall'] && this.triggerApiCall) {
+      this.callandReset()
     }
   }
 
+
+
+
+
+
+
+
+
+  callandReset() {
+    this.callApi();
+    this.dataFetched.emit();
+    this.triggerApiCall = false
+  }
   senduserId(id: string) {
     this.EmployeeService.setId(id)
   }
-  // senduserId(id: string) {
-  //   this.EmployeeService.setId(id)
-  // }
-  
-  callApi(){
+
+
+  callApi() {
     this.EmployeeService.getData().subscribe((resp: any) => {
       console.log(resp);
       this.employeeDetail = resp;
@@ -51,16 +68,16 @@ export class EmployeelistComponent implements OnInit,OnChanges {
   //   console.log("Method in Child 2 has been called!");
   // }
   deleteEmployee(id: string): void {
-    this.EmployeeService.deleteEmployee(id).subscribe(res=>{
+    this.EmployeeService.deleteEmployee(id).subscribe(res => {
       console.log('done')
-    },error=>{
+    }, error => {
       console.log(error)
     });
     this.employeeDetail = this.employeeDetail.filter((employee: any) => employee.id !== id); // Update the UI
   }
 
-  getonevent(){
-    this.EmployeeService.getData().subscribe(res=>{
+  getonevent() {
+    this.EmployeeService.getData().subscribe(res => {
       this.employeeDetail = res;
     })
   }
@@ -68,6 +85,6 @@ export class EmployeelistComponent implements OnInit,OnChanges {
 
 
 
-  
+
 
 }
