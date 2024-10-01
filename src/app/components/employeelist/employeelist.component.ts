@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EmployeeService } from '../services/employee.service';
 import { HttpClient } from '@angular/common/http';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User } from '../employeeform/employeeform.component';
+import { SearchPipe } from '../../search.pipe';
 
 @Component({
   selector: 'app-employeelist',
   standalone: true,
-  imports: [JsonPipe, FormsModule],
+  imports: [JsonPipe, FormsModule,SearchPipe, CommonModule],
   templateUrl: './employeelist.component.html',
   styleUrls: ['./employeelist.component.css'], // Fixed typo here
 })
@@ -18,11 +19,17 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   employeeDetail: any[] = []; // Initialize as an empty array
   keySelection!: string;
   keys!: string[];
-  valueSelection!: string[]
-  specificValues?:string[]
+  valueSelection!: string
+  specificValues?: string[]
 
   filteredData!: any
-  constructor(private EmployeeService: EmployeeService, private http: HttpClient) {}
+
+  searchval!:any
+inpval: any;
+  
+  // searchTerm: string = '';
+
+  constructor(private EmployeeService: EmployeeService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.fetchEmployeeData();
@@ -34,12 +41,26 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     }
   }
 
+  // fetchEmployeeData() {
+  //   this.EmployeeService.getData().subscribe(
+  //     (resp: any) => {
+  //       console.log(resp);
+  //       this.employeeDetail = resp;
+  //       this.getKeys(this.employeeDetail);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee data:', error);
+  //     }
+  //   );
+  // }
+
   fetchEmployeeData() {
     this.EmployeeService.getData().subscribe(
       (resp: any) => {
         console.log(resp);
         this.employeeDetail = resp;
-        this.getKeys(this.employeeDetail); // Pass the fetched employee data to getKeys
+        this.filteredData = resp;
+        this.getKeys(this.employeeDetail);
       },
       (error) => {
         console.error('Error fetching employee data:', error);
@@ -72,7 +93,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
       }
     );
   }
-
+  uniqueKeys!: string[]
   getKeys(data: any[]) {
     if (data && data.length > 0) {
       this.keys = [...new Set(data.flatMap(Object.keys))];
@@ -82,84 +103,88 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     }
   }
 
-  getFilteredData():string[]|undefined{
+
+  getFilteredData(): string[] | undefined {
     if (!this.keySelection) {
       console.log('No key selected');
       return;
     }
-    const values = this.employeeDetail.map(
-        item => item[this.keySelection]
-      ).filter(
-        value => value !== undefined
-      );
+
+    const values = this.employeeDetail
+      .map(item => item[this.keySelection])
+      .filter(value => value !== undefined);
 
 
-    console.log(this.keySelection, values);
-
-
-    return values;
+    return Array.from(new Set(values));
   }
 
-  onSelectionChange(event:any ) {
+  onSelectionChange(event: any) {
     this.keySelection = event.target.value;
     console.log(`Selected key: ${this.keySelection}`);
     this.specificValues = this.getFilteredData();
-    
   }
-  onValueSelectonChange(event:any){
+
+  onValueSelectonChange(event: any) {
+    if(event.target.value == "All"){
+      // this.valueSelection = this.employeeDetail
+      this.filteredData = this.employeeDetail;
+    }
     this.valueSelection = event.target.value;
     console.log('selected val = ', this.valueSelection)
   }
 
 
+  
+  
   applyChange() {
     if (this.keySelection === undefined) {
-        console.log('not selected');
-    } else {
-        this.EmployeeService.getData().subscribe((resp: any) => {
-            let result: any;
-
-            if (this.keySelection === 'id') {
-                result = resp.filter((data: any) => {
-                    return data.id === this.valueSelection; 
-                });
-                
-              }
-            if (this.keySelection === 'name') {
-                result = resp.filter((data: any) => {
-                    return data.name === this.valueSelection; 
-                });
-                
-              }
-            if (this.keySelection === 'email') {
-                result = resp.filter((data: any) => {
-                    return data.email === this.valueSelection; 
-                });
-                
-              }
-            if (this.keySelection === 'city') {
-                result = resp.filter((data: any) => {
-                    return data.city === this.valueSelection; 
-                });
-                
-              }
-            if (this.keySelection === 'zip') {
-                result = resp.filter((data: any) => {
-                    return data.zip === this.valueSelection; 
-                });
-                
-              }
-            if (this.keySelection === 'state') {
-                result = resp.filter((data: any) => {
-                    return data.state === this.valueSelection; 
-                });
-                
-              }
-              console.log(result); 
-              this.filteredData = result
-        });
-        // console.log('filter applied-', this.keySelection, "  ", this.valueSelection);
+      console.log('not selected');
+      return;
     }
+    
+    this.EmployeeService.getData().subscribe((resp: any) => {
+      let result: any;
+      
+      if (this.keySelection === 'All') {
+        result = this.employeeDetail;
+      } else {
+        const filterKey = this.keySelection;
+        result = resp.filter((data: any) => data[filterKey] === this.valueSelection);
+      }
+      
+      console.log(result);
+      this.filteredData = result;
+    });
+  }
+  resetFilters() {
+    this.keySelection = '';
+    this.valueSelection= "";
+    this.specificValues = [];
+    this.filteredData = this.employeeDetail;
+    console.log('Filters reset');
+  }
+
+//search
+onSearchChange(searchvalue: any): void {
+  if(searchvalue){
+    this.searchval = searchvalue;  
+    this.filterEmployees();
+  }
+  else{
+    this.searchval = this.employeeDetail
+  }
+}
+
+filterEmployees(): void {
+
+    this.filteredData = this.employeeDetail.filter(employee =>
+      Object.values(employee).some(value =>
+        String(value).toLowerCase().includes(this.searchval)
+      )
+    );
+  
+    // this.filteredData = this.employeeDetail; 
+
 }
 
 }

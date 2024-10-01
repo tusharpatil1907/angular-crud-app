@@ -1,42 +1,51 @@
+<!-- 
+<form (submit)="applyChange()" > -->
+<div class="row mt-5 ms-5 justify-content-center">
 
+    <div class="col-sm-2">
+        <select class="form-select" (change)="onSelectionChange($event)" id="validationCustom05" name="keySelection"
+            [(ngModel)]="keySelection" required>
+            <option disabled value="">Choose...</option>
+            <!-- <option selected value="">All</option>  -->
 
-<form (submit)="applyChange()" >
-<div class="row mt-5 ms-5 ">
-    
-            <div class="col-sm-2">
-            <select class="form-select" (change)="onSelectionChange($event)" id="validationCustom05" name="keySelection" [(ngModel)]="keySelection" required>
-                <option selected disabled value="">Choose...</option>
-                @for (item of keys; track $index) {
-                    @if(item){
-                         
-                        <option>{{item}}</option>
-                    }
-                }
-            </select>
+            @for (item of keys; track $index) {
+            @if(item){
 
-        </div>
-        <div class="col-sm-2">
-            
-            
-            <select class="form-select" id="validationCustom05"(change)="onValueSelectonChange($event)"  required>
-                <option selected disabled value="">Choose {{keySelection}}</option> 
+            <option>{{item}}</option>
+            }
+            }
+        </select>
 
-                @for (item of specificValues; track $index) {
-                <option>{{item}}</option> 
-
-                }
-
-            </select>
-        </div>
-        <button class="btn btn-primary col-sm-1"  type="submit">apply Filter</button>
-  
-        
     </div>
-</form>
+    <div class="col-sm-2">
+
+
+        <select class="form-select" id="validationCustom05" (change)="onValueSelectonChange($event)"
+            (change)="applyChange()" required>
+            <option selected disabled value="">Choose {{keySelection}}</option>
+            <!-- <option selected value="All">All</option>  -->
+
+            @for (item of specificValues; track $index) {
+            <option [value]="item">{{item}}</option>
+
+            }
+
+        </select>
+
+    </div>
+    <button class="btn btn-warning col-sm-1 " (click)="resetFilters()">Reset Filters</button>
+    <div class="col-sm-2"></div>
+    <!-- <button class="btn btn-primary col-sm-1"  type="submit">apply Filter</button> -->
+    <div class="col-sm-3"><input type="text" placeholder="search something" name="inpval" [(ngModel)]="inpval"
+            class="form-control"></div>
+   
+
+</div>
+<!-- </form> -->
 <div class="row justify-content-center mt-5">
     <div class="col-sm-10">
 
-        
+
         <table class="table">
             <thead>
                 <tr class="table-active">
@@ -51,47 +60,50 @@
             </thead>
             <tbody>
                 @if (filteredData) {
-                    @for (item of filteredData;  track  $index) {
-                        <tr>
-                            <th>{{item.id}}</th>
-                            <td>{{item.name}}</td>          
-                            <td>{{item.email}}</td>
-                            <td>{{item.city}}</td>
-                            <td>{{item.state}}</td>
-                            <td>{{item.zip}}</td>
-                            <td>
-                                <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
-                                <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
-                                <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
-                                <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i class="bi bi-trash-fill text-danger"></i></a>
-                            </td>
-                        </tr>
-                    }
-                }@else {
+                @for (item of filteredData | search: inpval ; track $index) {
+                <tr>
+                    <th>{{item.id}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.state}}</td>
+                    <td>{{item.zip}}</td>
+                    <td>
+                        <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
+                        <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
+                        <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                        <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i
+                                class="bi bi-trash-fill text-danger"></i></a>
+                    </td>
+                </tr>
+                }
+                }
+                @else{
 
-                    @for (item of employeeDetail; track $index) {
-                        
-                        <tr>
-                            <th>{{item.id}}</th>
-                            <td>{{item.name}}</td>          
-                            <td>{{item.email}}</td>
-                            <td>{{item.city}}</td>
-                            <td>{{item.state}}</td>
-                            <td>{{item.zip}}</td>
-                            <td>
-                                <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
-                                <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
-                                <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
-                                <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i class="bi bi-trash-fill text-danger"></i></a>
-                            </td>
-                        </tr>
-                    }
+                @for (item of employeeDetail; track $index) {
+
+                <tr>
+                    <th>{{item.id}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.state}}</td>
+                    <td>{{item.zip}}</td>
+                    <td>
+                        <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
+                        <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
+                        <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                        <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i
+                                class="bi bi-trash-fill text-danger"></i></a>
+                    </td>
+                </tr>
+                }
                 }
 
-                
+
             </tbody>
         </table>
     </div>
-    </div>
+</div>
 
-    <!-- {{employeeDetail| json}} -->
+<!-- {{employeeDetail| json}} -->
