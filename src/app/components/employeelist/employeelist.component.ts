@@ -11,27 +11,33 @@ import { SearchPipe } from '../../search.pipe';
   standalone: true,
   imports: [JsonPipe, FormsModule,SearchPipe, CommonModule],
   templateUrl: './employeelist.component.html',
-  styleUrls: ['./employeelist.component.css'], // Fixed typo here
+  styleUrls: ['./employeelist.component.css'], 
 })
 export class EmployeelistComponent implements OnInit, OnChanges {
   @Input() triggerApiCall: boolean = false;
   @Output() dataFetched = new EventEmitter<void>();
-  employeeDetail: any[] = []; // Initialize as an empty array
+  employeeDetail: any[] = []; 
   keySelection!: string;
   keys!: string[];
   valueSelection!: string
   specificValues?: string[]
 
-  filteredData!: any
-
-  searchval!:any
-inpval: any;
+  filteredData!: User[]
   
-  // searchTerm: string = '';
+ //search input search bar 
+  inpval: any;
+
+
+  //search input options 
+  searchTerm: string = '';
+ 
+  
+  
 
   constructor(private EmployeeService: EmployeeService, private http: HttpClient) { }
 
   ngOnInit(): void {
+
     this.fetchEmployeeData();
   }
 
@@ -39,20 +45,10 @@ inpval: any;
     if (changes['triggerApiCall'] && changes['triggerApiCall'].currentValue) {
       this.callApi();
     }
-  }
+    // this.fetchEmployeeData();
+    this.resetTrigger();
 
-  // fetchEmployeeData() {
-  //   this.EmployeeService.getData().subscribe(
-  //     (resp: any) => {
-  //       console.log(resp);
-  //       this.employeeDetail = resp;
-  //       this.getKeys(this.employeeDetail);
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching employee data:', error);
-  //     }
-  //   );
-  // }
+  }
 
   fetchEmployeeData() {
     this.EmployeeService.getData().subscribe(
@@ -60,6 +56,7 @@ inpval: any;
         console.log(resp);
         this.employeeDetail = resp;
         this.filteredData = resp;
+        
         this.getKeys(this.employeeDetail);
       },
       (error) => {
@@ -69,9 +66,16 @@ inpval: any;
   }
 
   callApi() {
-    this.fetchEmployeeData();
-    this.resetTrigger();
+
+      this.EmployeeService.getData().subscribe((resp: any) => {
+        console.log(resp);
+        this.employeeDetail = resp;
+      });
+
+    // this.fetchEmployeeData();
+    // this.resetTrigger();
   }
+ 
 
   resetTrigger() {
     this.dataFetched.emit();
@@ -83,15 +87,17 @@ inpval: any;
   }
 
   deleteEmployee(id: string): void {
-    this.EmployeeService.deleteEmployee(id).subscribe(
-      () => {
-        console.log('Employee deleted');
-        this.employeeDetail = this.employeeDetail.filter((employee: any) => employee.id !== id); // Update the UI
-      },
-      (error) => {
-        console.error('Error deleting employee:', error);
-      }
-    );
+    if(confirm("are you sure")){
+
+      this.EmployeeService.deleteEmployee(id).subscribe(
+        () => {console.log('Employee deleted');
+          this.employeeDetail = this.employeeDetail.filter((employee: any) => employee.id !== id);
+          this.fetchEmployeeData()
+        },(error) => {
+          console.error('Error deleting employee:', error);
+        }
+      );
+    }
   }
   uniqueKeys!: string[]
   getKeys(data: any[]) {
@@ -104,7 +110,7 @@ inpval: any;
   }
 
 
-  getFilteredData(): string[] | undefined {
+  getFilteredData(): any | undefined {
     if (!this.keySelection) {
       console.log('No key selected');
       return;
@@ -115,7 +121,7 @@ inpval: any;
       .filter(value => value !== undefined);
 
 
-    return Array.from(new Set(values));
+    return new Set(values);
   }
 
   onSelectionChange(event: any) {
@@ -163,28 +169,4 @@ inpval: any;
     this.filteredData = this.employeeDetail;
     console.log('Filters reset');
   }
-
-//search
-onSearchChange(searchvalue: any): void {
-  if(searchvalue){
-    this.searchval = searchvalue;  
-    this.filterEmployees();
-  }
-  else{
-    this.searchval = this.employeeDetail
-  }
-}
-
-filterEmployees(): void {
-
-    this.filteredData = this.employeeDetail.filter(employee =>
-      Object.values(employee).some(value =>
-        String(value).toLowerCase().includes(this.searchval)
-      )
-    );
-  
-    // this.filteredData = this.employeeDetail; 
-
-}
-
 }

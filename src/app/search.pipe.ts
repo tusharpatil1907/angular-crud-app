@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { User } from './components/employeeform/employeeform.component';
 
 @Pipe({
   name: 'search',
@@ -6,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(items: any[], searchTerm: string): any[] {
+  transform(items: User[], searchTerm: string): User[] {
     if (!items || !searchTerm) {
       return items;
     }
