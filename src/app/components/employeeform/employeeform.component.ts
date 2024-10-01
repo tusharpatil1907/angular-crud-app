@@ -55,7 +55,7 @@ export class EmployeeformComponent implements OnInit {
     
     
   }
-
+  useremail = ""
 
   generateId():string|number {
 
@@ -66,8 +66,12 @@ export class EmployeeformComponent implements OnInit {
   }
 
   substr(email:string){
-    console.log('called')
-    return email.substring(0,3)
+    if(email){
+      console.log('called')
+      return email.substring(0,3)
+    }else {
+      return '';
+    }
   }
   
   
@@ -93,7 +97,7 @@ export class EmployeeformComponent implements OnInit {
       }
       this.sendToParent.emit();      
       this.employeeForm.reset();
-      this.generateForm()
+      // this.generateForm()
       this.randomId = this.generateId()
     }
 
@@ -159,6 +163,46 @@ export class EmployeeformComponent implements OnInit {
     });
   }
 
+
+states = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+    'Andaman and Nicobar Islands',
+    'Chandigarh',
+    'Dadra and Nagar Haveli and Daman and Diu',
+    'Lakshadweep',
+    'Delhi',
+    'Puducherry',
+    'Jammu and Kashmir',
+    'Ladakh'
+  ];
+  
  
 }
 

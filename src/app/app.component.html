@@ -14,6 +14,6 @@
 </nav>
 <!-- (triggerApiCall)="onTriggerApiCall()" -->
 <app-employeeform (sendToParent)="handleChild1Event()"    ></app-employeeform>
-<app-employeelist [triggerApiCall]="triggerApiCall" (dataFetched)="onDataFetched()"></app-employeelist>
+<app-employeelist [triggerApiCall]="triggerApiCall" ></app-employeelist>
 <router-outlet   />
 <!-- (callApiEvent)="onTriggerApiCall()" -->

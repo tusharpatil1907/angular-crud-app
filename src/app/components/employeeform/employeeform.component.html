@@ -5,7 +5,7 @@
   
         <div class="col-md-2">
           <label for="validationCustom01" class="form-label">Employee ID</label>
-          <input type="text" class="form-control" readonly id="validationCustom01" placeholder="id" formControlName="id"   required>
+          <input type="text" class="form-control" readonly id="validationCustom01" placeholder="id"  formControlName="id"   required>
           <div *ngIf="employeeForm.get('id')?.invalid && (employeeForm.get('id')?.touched || employeeForm.get('id')?.dirty)" class="invalid-feedback">
             Employee ID is required.
           </div>
@@ -25,7 +25,7 @@
             
         <div class="col-md-5">
           <label for="validationCustom03" class="form-label">Email</label>
-          <input type="email" class="form-control" id="validationCustom03"    placeholder="Email" formControlName="email" required>
+          <input type="email" class="form-control" id="validationCustom03" [ngModel]="useremail"    placeholder="Email" formControlName="email" required>
           @if(employeeForm.get('email')?.invalid && (employeeForm.get('email')?.touched || employeeForm.get('email')?.dirty)){
               <div  class="text-danger">
                   Please provide a valid email address.
@@ -48,7 +48,9 @@
           <label for="validationCustom05" class="form-label">State</label>
           <select class="form-select" id="validationCustom05" formControlName="state" required>
             <option selected disabled value="">Choose...</option>
-            <option>...</option>
+            @for (item of states; track $index) {
+              <option>{{item}}</option>
+            }
           </select>
           @if(employeeForm.get('state')?.invalid && (employeeForm.get('state')?.touched || employeeForm.get('state')?.dirty)){
               <div *ngIf="" class="text-danger">

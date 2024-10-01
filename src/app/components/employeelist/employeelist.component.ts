@@ -15,44 +15,25 @@ import { FormGroup } from '@angular/forms';
 export class EmployeelistComponent implements OnInit, OnChanges {
   @Input() triggerApiCall: boolean = false;
   employeeDetail: any
-
   constructor(private EmployeeService: EmployeeService, private http: HttpClient) { }
-
   ngOnInit(): void {
     this.EmployeeService.getData().subscribe((resp: any) => {
       console.log(resp);
       this.employeeDetail = resp;
     });
   }
-  // ngOnChanges(changes:any): void {
-  //   if (changes['triggerApiCall'] && changes['triggerApiCall'].currentValue) {
-  //     console.log(changes)
-  //     this.callApi();  // Trigger API call on input change
-  //   }
-  // }
-
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['triggerApiCall'].currentValue && this.triggerApiCall) {
       this.callApi();
     }
     this.resetTrigger()
   }
-  
-  
-  
-  
-  
-  
   callApi() {
     this.EmployeeService.getData().subscribe((resp: any) => {
       console.log(resp);
       this.employeeDetail = resp;
     });
   }
-  
-  
-  
   @Output() dataFetched = new EventEmitter<void>();
   resetTrigger() {
     this.dataFetched.emit();
@@ -62,13 +43,6 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     this.EmployeeService.setId(id)
   }
 
-
-
-  //calling from employee submit
-  // executeMethod() {
-  //   this.callApi()
-  //   console.log("Method in Child 2 has been called!");
-  // }
   deleteEmployee(id: string): void {
     this.EmployeeService.deleteEmployee(id).subscribe(res => {
       console.log('done')
@@ -83,5 +57,8 @@ export class EmployeelistComponent implements OnInit, OnChanges {
       this.employeeDetail = res;
     })
   }
+//crud end
+
+//filter start
 
 }
