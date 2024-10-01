@@ -1,156 +1,36 @@
 {
   "Employees": [
     {
-      "id": "902tus",
-      "name": "asdsd",
-      "email": "assd@232",
-      "city": "asd",
-      "state": "...",
-      "zip": "232323"
-    },
-    {
-      "id": "273asd",
-      "name": "dsad",
-      "email": "wqe@sad",
-      "city": "sadasd",
-      "state": "...",
-      "zip": "213212"
-    },
-    {
-      "id": "879234",
-      "name": "dsadsa",
-      "email": "234334434@sdfsf",
-      "city": "asdsada",
-      "state": "...",
-      "zip": "232323"
-    },
-    {
-      "id": "603jsa",
-      "name": "asd",
-      "email": "jsadh@jkash",
-      "city": "jskadhsja",
-      "state": "...",
-      "zip": "823734"
-    },
-    {
-      "id": "72asd",
-      "name": "asdasd",
-      "email": "asdasd@sada",
-      "city": "asdsad",
-      "state": "...",
-      "zip": "213213"
-    },
-    {
-      "id": "838tus",
-      "name": "asdsad",
-      "email": "tush@asd",
-      "city": "jfkhdjf",
-      "state": "...",
-      "zip": "328434"
-    },
-    {
-      "id": "689tp3",
-      "name": "tushar",
-      "email": "tp3213@gm",
-      "city": "ahemdabar",
-      "state": "...",
-      "zip": "123345"
-    },
-    {
-      "id": "208sdf",
-      "name": "sdfd",
-      "email": "sdfd@ad",
-      "city": "surat",
-      "state": "...",
-      "zip": "234234"
-    },
-    {
-      "id": "857asd",
+      "id": "714sad",
       "name": "sadsa",
-      "email": "asd@asd",
-      "city": "asd",
-      "state": "...",
-      "zip": "123223"
+      "email": "sad@asds",
+      "city": "addasda",
+      "state": "Arunachal Pradesh",
+      "zip": "123122"
     },
     {
-      "id": "244ads",
-      "name": "ads@",
-      "email": "ads@asd",
-      "city": "sadsad",
-      "state": "...",
-      "zip": "243232"
+      "id": "101tp3",
+      "name": "tushar",
+      "email": "tp36213@gmail.com",
+      "city": "surar",
+      "state": "Gujarat",
+      "zip": "123123"
     },
     {
-      "id": "354asd",
-      "name": "sdf",
-      "email": "asdf@sdf",
-      "city": "asdas",
-      "state": "...",
-      "zip": "243323"
-    },
-    {
-      "id": "521dem",
-      "name": "demo",
-      "email": "demo@gmail.com",
-      "city": "demo",
-      "state": "...",
-      "zip": "234567"
-    },
-    {
-      "id": "673dmo",
-      "name": "demp",
-      "email": "dmo@gmwi.om",
-      "city": "deni",
-      "state": "...",
-      "zip": "789456"
-    },
-    {
-      "id": "835dem",
-      "name": "demo",
-      "email": "demo@123",
-      "city": "demo",
-      "state": "...",
-      "zip": "123456"
-    },
-    {
-      "id": "623dem",
-      "name": "demo",
-      "email": "demo@gmai.com",
-      "city": "demo",
-      "state": "...",
-      "zip": "134343"
-    },
-    {
-      "id": "758dem",
-      "name": "demo",
-      "email": "demo@gmIL.OM",
-      "city": "DEMO",
-      "state": "...",
-      "zip": "343434"
-    },
-    {
-      "id": "59tis",
-      "name": "3454",
-      "email": "tis@kdlsfj",
-      "city": "VCVV",
-      "state": "...",
-      "zip": "234234"
-    },
-    {
-      "id": "705dem",
-      "name": "demo",
-      "email": "demo@gmailcom",
-      "city": "femo",
-      "state": "...",
-      "zip": "242343"
-    },
-    {
-      "id": "771skf",
-      "name": "thkj",
-      "email": "skfjh@d",
-      "city": "adadas",
+      "id": "818sad",
+      "name": "asdasd",
+      "email": "sadsa@asda",
+      "city": "asda",
       "state": "Assam",
-      "zip": "324334"
+      "zip": "123213"
+    },
+    {
+      "id": "359sad",
+      "name": "asdas",
+      "email": "sadas@asas",
+      "city": "asdas",
+      "state": "Chhattisgarh",
+      "zip": "123123"
     }
   ]
 }

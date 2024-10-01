@@ -1,3 +1,38 @@
+
+
+<form (submit)="applyChange()" >
+<div class="row mt-5 ms-5 ">
+    
+            <div class="col-sm-2">
+            <select class="form-select" (change)="onSelectionChange($event)" id="validationCustom05" name="keySelection" [(ngModel)]="keySelection" required>
+                <option selected disabled value="">Choose...</option>
+                @for (item of keys; track $index) {
+                    @if(item){
+                         
+                        <option>{{item}}</option>
+                    }
+                }
+            </select>
+
+        </div>
+        <div class="col-sm-2">
+            
+            
+            <select class="form-select" id="validationCustom05"(change)="onValueSelectonChange($event)"  required>
+                <option selected disabled value="">Choose {{keySelection}}</option> 
+
+                @for (item of specificValues; track $index) {
+                <option>{{item}}</option> 
+
+                }
+
+            </select>
+        </div>
+        <button class="btn btn-primary col-sm-1"  type="submit">apply Filter</button>
+  
+        
+    </div>
+</form>
 <div class="row justify-content-center mt-5">
     <div class="col-sm-10">
 
@@ -15,22 +50,42 @@
                 </tr>
             </thead>
             <tbody>
-                @for (item of employeeDetail; track $index) {
+                @if (filteredData) {
+                    @for (item of filteredData;  track  $index) {
+                        <tr>
+                            <th>{{item.id}}</th>
+                            <td>{{item.name}}</td>          
+                            <td>{{item.email}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.state}}</td>
+                            <td>{{item.zip}}</td>
+                            <td>
+                                <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
+                                <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
+                                <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                                <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i class="bi bi-trash-fill text-danger"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }@else {
 
-                    <tr>
-                        <th>{{item.id}}</th>
-                        <td>{{item.name}}</td>          
-                        <td>{{item.email}}</td>
-                        <td>{{item.city}}</td>
-                        <td>{{item.state}}</td>
-                        <td>{{item.zip}}</td>
-                        <td>
-                            <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
-                            <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
-                            <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
-                            <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i class="bi bi-trash-fill text-danger"></i></a>
-                        </td>
-                    </tr>
+                    @for (item of employeeDetail; track $index) {
+                        
+                        <tr>
+                            <th>{{item.id}}</th>
+                            <td>{{item.name}}</td>          
+                            <td>{{item.email}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.state}}</td>
+                            <td>{{item.zip}}</td>
+                            <td>
+                                <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
+                                <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
+                                <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                                <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i class="bi bi-trash-fill text-danger"></i></a>
+                            </td>
+                        </tr>
+                    }
                 }
 
                 
