@@ -19,10 +19,15 @@ id!:string|number
   handleChild1Event() {
     console.log('Event received from Child 1');
     this.triggerApiCall = true;  
+    // this.onDataFetched()
   }
 
   onDataFetched() {
-    this.triggerApiCall = false; }
+    setTimeout(() => {
+      
+      this.triggerApiCall = false;
+    }, 10);
+   }
   
   
 

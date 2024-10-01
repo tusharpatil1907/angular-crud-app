@@ -86,11 +86,11 @@ export class EmployeeformComponent implements OnInit {
 
       this.employeeForm.patchValue({id: this.randomId+ this.substring.substring(0,3)})
 
-      const employee = this.employeeForm
+      // const employee = this.employeeForm
       console.log(this.employeeForm.value)
       if (!this.user) {
 
-        this.emp.setData(employee) 
+        this.emp.setData(this.employeeForm) 
       }
       else {
         this.updateUser(this.user.id);

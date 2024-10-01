@@ -1,140 +1,36 @@
 {
   "Employees": [
     {
-      "id": "946ASD",
-      "name": "ASD",
-      "email": "ASD@ASD",
-      "city": "SAD@SAD",
+      "id": "69asd",
+      "name": "sdsad",
+      "email": "asd@asdsd",
+      "city": "asds",
       "state": "Assam",
       "zip": "123123"
     },
     {
-      "id": "849sad",
-      "name": "sada",
-      "email": "sad@asdas",
-      "city": "asdad",
-      "state": "Arunachal Pradesh",
-      "zip": "123123"
+      "id": "703asd",
+      "name": "asdasd",
+      "email": "asdsa@asdsa",
+      "city": "Shahada",
+      "state": "Maharashtra",
+      "zip": "425409"
     },
     {
-      "id": "203das",
-      "name": "asdasd@dsad",
-      "email": "dasd@asd",
-      "city": "asdsa",
-      "state": "Assam",
-      "zip": "123123"
-    },
-    {
-      "id": "344sad",
-      "name": "asdsa",
-      "email": "sads@sad",
-      "city": "sadsa",
-      "state": "Arunachal Pradesh",
-      "zip": "123123"
-    },
-    {
-      "id": "330asd",
-      "name": "asd",
-      "email": "asdad@12",
-      "city": "xzX",
-      "state": "Assam",
-      "zip": "123123"
-    },
-    {
-      "id": "472asd",
-      "name": "sadsad",
-      "email": "asd@asd",
-      "city": "asdsa",
-      "state": "Assam",
-      "zip": "123123"
-    },
-    {
-      "id": "383das",
-      "name": "sadas",
-      "email": "das@sadsa",
-      "city": "surat",
-      "state": "Assam",
-      "zip": "123123"
-    },
-    {
-      "id": "500qwe",
-      "name": "qwe",
-      "email": "qwe@adsad",
-      "city": "dsad",
-      "state": "Arunachal Pradesh",
+      "id": "222asd",
+      "name": "ads",
+      "email": "asds@324",
+      "city": "adsd",
+      "state": "Bihar",
       "zip": "121212"
     },
     {
-      "id": "303bff",
-      "name": "sdsd",
-      "email": "bff@qwe",
-      "city": "asdasd",
-      "state": "Gujarat",
-      "zip": "123123"
-    },
-    {
-      "id": "711asd",
-      "name": "asdsa",
-      "email": "asd@sad",
-      "city": "sadsad",
-      "state": "Bihar",
-      "zip": "121231"
-    },
-    {
-      "id": "464asd",
-      "name": "sdasdsa",
-      "email": "asdsd@sad",
-      "city": "fdgfdgfd",
-      "state": "Arunachal Pradesh",
-      "zip": "123213"
-    },
-    {
-      "id": "866asd",
-      "name": "adasd",
-      "email": "asds@sad",
-      "city": "asdsa@sas",
-      "state": "Assam",
-      "zip": "123123"
-    },
-    {
-      "id": "997asd",
-      "name": "dasd",
-      "email": "asdsa@asdasd",
-      "city": "asdsad",
-      "state": "Bihar",
-      "zip": "213123"
-    },
-    {
-      "id": "326asd",
-      "name": "asdsa",
-      "email": "asdsa@sadas",
-      "city": "sadsad",
-      "state": "Assam",
-      "zip": "123123"
-    },
-    {
-      "id": "75dsa",
-      "name": "zcxz",
-      "email": "dsadsa@sad",
-      "city": "sadsad",
-      "state": "Goa",
-      "zip": "123123"
-    },
-    {
-      "id": "958asd",
-      "name": "sadsa",
-      "email": "asd@asd",
-      "city": "asdsa",
-      "state": "Assam",
-      "zip": "213223"
-    },
-    {
-      "id": "641tp2",
-      "name": "tusahr",
-      "email": "tp236@sa",
-      "city": "adsa",
-      "state": "Assam",
-      "zip": "111111"
+      "id": "453qwe",
+      "name": "qwew",
+      "email": "qwewq@asds",
+      "city": "Shahada",
+      "state": "Maharashtra",
+      "zip": "425409"
     }
   ]
 }

@@ -43,10 +43,10 @@ export class EmployeelistComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['triggerApiCall'] && changes['triggerApiCall'].currentValue) {
-      this.callApi();
+      // this.callApi();
+      this.fetchEmployeeData();
+      this.resetTrigger();
     }
-    // this.fetchEmployeeData();
-    this.resetTrigger();
 
   }
 
@@ -67,7 +67,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
 
   callApi() {
 
-      this.EmployeeService.getData().subscribe((resp: any) => {
+      return this.EmployeeService.getData().subscribe((resp: any) => {
         console.log(resp);
         this.employeeDetail = resp;
       });
