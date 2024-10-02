@@ -22,6 +22,7 @@ this.router.navigate([''])
   usertoedit!: void
   user!: User;
   randomId:number|string = this.generateId() 
+  // randomId:number|string = this.generateId() 
   constructor(private http: HttpClient, private fb: FormBuilder, private emp: EmployeeService, private router : Router, private route: ActivatedRoute) {
 
     
@@ -30,6 +31,7 @@ this.router.navigate([''])
   generateForm() {
     
     this.employeeForm = this.fb.group({
+      // id: [this.randomId, Validators.required],
       id: [this.randomId, Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -261,7 +263,35 @@ states = [
   ];
   
 
+  generateNumber(email:string):string {
+    // debugger
+    // const data ="tp@gmail.com" 
+  //   let inputdata = data.split('@')[0]
+  //   const letters = inputdata
+    const username = email.split('@')[0];
+    console.log(username)
+    
+    const minletters = Math.min(3, username.length);
+    // 2
+    // const selectedLetters:string[] = [];
+    
+   
+    const numDigits = 6 - minletters;
 
+    const digits:string[] = [];
+    for (let i = 0; i < numDigits; i++) {
+        const randomDigit:string = String(Math.floor(Math.random() * 10)); 
+        digits.push(randomDigit);
+    }
+
+    // const res = selectedLetters.concat(digits);
+    let res = digits.join("")+ username
+    
+    console.log(res)
+    return res;
+    // debugger
+  }
+  
 
   
   

@@ -38,8 +38,8 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   constructor(private EmployeeService: EmployeeService, private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {
-
     this.fetchEmployeeData();
+    // this.generateNumber('t@gmail.com')
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -181,4 +181,50 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     // })
 
   }
+
+
+
+  // generateNumber():void{
+  //   const data ="tp@gmail.com" 
+  //   let inputdata = data.split('@')[0]
+  //   const letters = inputdata
+  //   console.log(letters.length) 
+  //   const minleters = Math.min(3, letters.length);
+
+  //   // let generatedID:string= ""
+  //   let selection:string = "";
+  //   for(let i= 0 ; i < minleters; i++){
+  //     selection+= Math.floor(Math.random() * letters.length).toString
+  //   }
+  //   console.log(selection)
+  // // while (selection.length < minleters) {
+  //     // const index = Math.floor(Math.random() * letters.length);
+  // //     const letter = letters[randomIndex];
+  // //     if (!selection.includes(letter)) {
+  // //         selection.push(letter);
+  // //     }
+  // // }
+
+
+  
+
+
+  //   // return inputdata
+  // }
+
+
+  
+  
+  
 }
+
+
+
+
+
+
+
+
+
+
+
