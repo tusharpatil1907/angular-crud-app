@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { User } from './components/employeeform/employeeform.component';
 
 @Pipe({
   name: 'filter',
@@ -6,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(items:any[] , key:string,value: string ): unknown {
+  transform(items:any[] , key:string,value: string ): User[] {
     if (!items || !key || !value) {
       return items;
     }

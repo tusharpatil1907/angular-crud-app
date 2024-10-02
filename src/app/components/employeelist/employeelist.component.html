@@ -20,7 +20,7 @@
     <div class="col-sm-2">
 
 
-        <select class="form-select" id="validationCustom05" (change)="onValueSelectonChange($event)" required>
+        <select class="form-select" id="validationCustom05" [(ngModel)]="valueSelection"  required>
             <option selected disabled value="">Choose {{keySelection}}</option>
             <!-- <option selected value="All">All</option>  -->
 
@@ -58,8 +58,8 @@
                 </tr>
             </thead>
             <tbody>
-                @if (filteredData) {
-                @for (item of filteredData | search: inpval  ; track $index) {
+                <!-- @if (filteredData) { -->
+                @for (item of filteredData | filter:keySelection:valueSelection | search: inpval; track $index) {
                 <tr>
                     <th>{{item.id}}</th>
                     <td>{{item.name}}</td>
@@ -76,9 +76,9 @@
                     </td>
                 </tr>
                 }
-                }@else{
+                <!-- }@else{
                         no data found
-                }
+                } -->
               
 
 

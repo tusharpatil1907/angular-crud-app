@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../employeeform/employeeform.component';
 import { SearchPipe } from '../../search.pipe';
 import { Router, RouterModule } from '@angular/router';
+import { FilterPipe } from "../../filter.pipe";
 
 @Component({
   selector: 'app-employeelist',
   standalone: true,
-  imports: [JsonPipe, FormsModule,SearchPipe, CommonModule,RouterModule],
+  imports: [JsonPipe, FormsModule,FilterPipe, SearchPipe, CommonModule, RouterModule, FilterPipe],
   templateUrl: './employeelist.component.html',
   styleUrls: ['./employeelist.component.css'], 
 })
@@ -100,6 +101,9 @@ export class EmployeelistComponent implements OnInit, OnChanges {
       );
     }
   }
+
+
+  
   uniqueKeys!: string[]
   getKeys(data: any[]) {
     if (data && data.length > 0) {
@@ -125,44 +129,53 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     return new Set(values);
   }
 
+  // onSelectionChange(event: Event) {
+  //   const e = event.target as HTMLInputElement;
+  //   this.keySelection = e.value;
+  //   console.log(`Selected key: ${this.keySelection}`);
+  //   this.specificValues = this.getFilteredData();
+  // }
+
   onSelectionChange(event: Event) {
     const e = event.target as HTMLInputElement;
     this.keySelection = e.value;
-    console.log(`Selected key: ${this.keySelection}`);
-    this.specificValues = this.getFilteredData();
+    this.specificValues = Array.from(this.getFilteredData());
   }
-
   onValueSelectonChange(event: any) {
-    if(event.target.value == "All"){
-      // this.valueSelection = this.employeeDetail
-      this.filteredData = this.employeeDetail;
-    }
     this.valueSelection = event.target.value;
-    console.log('selected val = ', this.valueSelection)
-    this.applyChange();
-  }     
-  
-  applyChange() {
-    if (this.keySelection === undefined) {
-      console.log('not selected');
-      return;
-    }
-    
-    this.EmployeeService.getData().subscribe((resp: any) => {
-      let result: any;
-      
-      if (this.keySelection === 'All') {
-        result = this.employeeDetail;
-      } else {
-        const filterKey = this.keySelection;
-        debugger;
-        result = resp.filter((data: any) => data[filterKey] === this.valueSelection);
-      }
-      
-      console.log(result);
-      this.filteredData = result;
-    });
+    // this.applyChange();
   }
+  // onValueSelectonChange(event: any) {
+  //   if(event.target.value == "All"){
+  //     // this.valueSelection = this.employeeDetail
+  //     this.filteredData = this.employeeDetail;
+  //   }
+  //   this.valueSelection = event.target.value;
+  //   console.log('selected val = ', this.valueSelection)
+  //   this.applyChange();
+  // }     
+  
+  // applyChange() {
+  //   if (this.keySelection === undefined) {
+  //     console.log('not selected');
+  //     return;
+  //   }
+    
+  //   this.EmployeeService.getData().subscribe((resp: any) => {
+  //     let result: any;
+      
+  //     if (this.keySelection === 'All') {
+  //       result = this.employeeDetail;
+  //     } else {
+  //       const filterKey = this.keySelection;
+  //       // debugger;
+  //       result = resp.filter((data: any) => data[filterKey] === this.valueSelection);
+  //     }
+      
+  //     console.log(result);
+  //     this.filteredData = result;
+  //   });
+  // }
   resetFilters() {
     this.keySelection = '';
     this.valueSelection= "";

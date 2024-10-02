@@ -32,10 +32,10 @@ export class EmployeeService {
     this.callback(); 
   }
 
-  registerCallback(callback: () => void) {
-    this.callback = callback; 
+  // registerCallback(callback: () => void) {
+  //   this.callback = callback; 
 
-  }
+  // }
 
   setData(form: FormGroup) {
     const employeeForm = form.value;
