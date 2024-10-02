@@ -1,4 +1,3 @@
-
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { EmployeeService } from '../services/employee.service';
@@ -103,18 +102,19 @@ this.router.navigate([''])
       // const employee = this.employeeForm
       // console.log('ID before submit:', this.employeeForm.get('id')?.value); 
       if (this.user == undefined) {
-        debugger
+        // debugger
         this.http.post(this.emp.api,{id: this.employeeForm.get('id')?.value, ...this.employeeForm.value}).subscribe(res=>res , err=>{
           console.log(err)
         })
         // this.emp.setData(this.employeeForm)
-        debugger;
+        // debugger;
       }
       else {
         this.updateUser(this.userid);
       }
       this.sendToParent.emit();      
-      this.employeeForm.reset();
+      // this.employeeForm.reset();
+      this.reset()
       // this.generateForm()
       this.randomId = this.generateId()
     }

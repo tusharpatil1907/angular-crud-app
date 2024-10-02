@@ -18,11 +18,12 @@ import { FilterPipe } from "../../filter.pipe";
 export class EmployeelistComponent implements OnInit, OnChanges {
   @Input() triggerApiCall: boolean = false;
   @Output() dataFetched = new EventEmitter<void>();
-  employeeDetail: any[] = []; 
-  keySelection!: string;
+  employeeDetail: User[] = []; 
+  keySelection!: keyof User
+  ;
   keys!: string[];
   valueSelection!: string
-  specificValues?: string[]
+  specificValues!: string[]
 
   filteredData!: User[]
   
@@ -103,7 +104,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   }
 
 
-  
+
   uniqueKeys!: string[]
   getKeys(data: any[]) {
     if (data && data.length > 0) {
@@ -118,7 +119,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   getFilteredData(): any | undefined {
     if (!this.keySelection) {
       console.log('No key selected');
-      return;
+      return new Set();
     }
 
     const values = this.employeeDetail
@@ -136,10 +137,10 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   //   this.specificValues = this.getFilteredData();
   // }
 
-  onSelectionChange(event: Event) {
+  onSelectionChange(event: Event):void {
     const e = event.target as HTMLInputElement;
-    this.keySelection = e.value;
-    this.specificValues = Array.from(this.getFilteredData());
+    this.keySelection = e.value as keyof User;
+    this.specificValues = Array.from(this.getFilteredData()||[]);
   }
   onValueSelectonChange(event: any) {
     this.valueSelection = event.target.value;
@@ -177,7 +178,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   //   });
   // }
   resetFilters() {
-    this.keySelection = '';
+    this.keySelection = '' as keyof User;
     this.valueSelection= "";
     this.specificValues = [];
     this.filteredData = this.employeeDetail;

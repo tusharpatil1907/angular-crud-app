@@ -24,7 +24,7 @@
             <option selected disabled value="">Choose {{keySelection}}</option>
             <!-- <option selected value="All">All</option>  -->
 
-            @for (item of specificValues; track $index) {
+            @for (item of specificValues | filter:'':valueSelection; track $index) {
             <option [value]="item">{{item}}</option>
 
             }
