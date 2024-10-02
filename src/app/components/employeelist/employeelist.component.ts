@@ -5,11 +5,12 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User } from '../employeeform/employeeform.component';
 import { SearchPipe } from '../../search.pipe';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-employeelist',
   standalone: true,
-  imports: [JsonPipe, FormsModule,SearchPipe, CommonModule],
+  imports: [JsonPipe, FormsModule,SearchPipe, CommonModule,RouterModule],
   templateUrl: './employeelist.component.html',
   styleUrls: ['./employeelist.component.css'], 
 })
@@ -34,7 +35,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
   
   
 
-  constructor(private EmployeeService: EmployeeService, private http: HttpClient) { }
+  constructor(private EmployeeService: EmployeeService, private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -82,9 +83,9 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     this.triggerApiCall = false;
   }
 
-  senduserId(id: string) {
-    this.EmployeeService.setId(id);
-  }
+    senduserId(id: string) {
+      this.EmployeeService.setId(id);
+    }
 
   deleteEmployee(id: string): void {
     if(confirm("are you sure")){
@@ -124,8 +125,9 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     return new Set(values);
   }
 
-  onSelectionChange(event: any) {
-    this.keySelection = event.target.value;
+  onSelectionChange(event: Event) {
+    const e = event.target as HTMLInputElement;
+    this.keySelection = e.value;
     console.log(`Selected key: ${this.keySelection}`);
     this.specificValues = this.getFilteredData();
   }
@@ -137,10 +139,8 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     }
     this.valueSelection = event.target.value;
     console.log('selected val = ', this.valueSelection)
-  }
-
-
-  
+    this.applyChange();
+  }     
   
   applyChange() {
     if (this.keySelection === undefined) {
@@ -155,6 +155,7 @@ export class EmployeelistComponent implements OnInit, OnChanges {
         result = this.employeeDetail;
       } else {
         const filterKey = this.keySelection;
+        debugger;
         result = resp.filter((data: any) => data[filterKey] === this.valueSelection);
       }
       
@@ -168,5 +169,16 @@ export class EmployeelistComponent implements OnInit, OnChanges {
     this.specificValues = [];
     this.filteredData = this.employeeDetail;
     console.log('Filters reset');
+  }
+
+
+  generateQuery(id:string) {
+    let data 
+    // this.EmployeeService.getUser(id).subscribe((res)=>{
+      // data = res
+      // console.log(data)
+      this.router.navigate(['/'],{queryParams: {id: id}})
+    // })
+
   }
 }

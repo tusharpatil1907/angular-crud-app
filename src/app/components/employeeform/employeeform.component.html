@@ -25,7 +25,7 @@
             
         <div class="col-md-5">
           <label for="validationCustom03" class="form-label">Email</label>
-          <input type="email" class="form-control" id="validationCustom03" [ngModel]="useremail"    placeholder="Email" formControlName="email" required>
+          <input type="email" class="form-control" id="validationCustom03"   placeholder="Email" formControlName="email" required>
           @if(employeeForm.get('email')?.invalid && (employeeForm.get('email')?.touched || employeeForm.get('email')?.dirty)){
               <div  class="text-danger">
                   Please provide a valid email address.
@@ -72,10 +72,11 @@
   
         <div class="col-12">
           <button class="btn btn-primary" (click)="submit()" type="submit" >Submit form</button>
+          <button class="btn btn-primary" (click)="reset()" type="button" >Reset</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- <button (click)="generateId()">gen</button> -->
+  <!-- <button (click)="getQuery()">gen</button> -->
   

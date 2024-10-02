@@ -20,8 +20,7 @@
     <div class="col-sm-2">
 
 
-        <select class="form-select" id="validationCustom05" (change)="onValueSelectonChange($event)"
-            (change)="applyChange()" required>
+        <select class="form-select" id="validationCustom05" (change)="onValueSelectonChange($event)" required>
             <option selected disabled value="">Choose {{keySelection}}</option>
             <!-- <option selected value="All">All</option>  -->
 
@@ -70,8 +69,8 @@
                     <td>{{item.zip}}</td>
                     <td>
                         <!-- <a class="p-2" href=""><i class="bi bi-plus-circle-fill text-success"></i></a> -->
-                        <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a>
-                        <!-- <a class="p-2" (click)="editEmployee(item); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                        <!-- <a class="p-2" (click)="senduserId(item.id)"><i class="bi bi-pencil-fill text-warning"></i></a> -->
+                        <a class="p-2" (click)="generateQuery(item.id); $event.preventDefault();"><i class="bi bi-pencil-fill text-warning"></i></a>
                         <a class="p-2" (click)="deleteEmployee(item.id); $event.preventDefault();"><i
                                 class="bi bi-trash-fill text-danger"></i></a>
                     </td>
@@ -89,3 +88,4 @@
 </div>
 
 <!-- {{employeeDetail| json}} -->
+ <button (click)="generateQuery('703asd')">gen</button>

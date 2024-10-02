@@ -40,9 +40,10 @@ export class EmployeeService {
   setData(form: FormGroup) {
     const employeeForm = form.value;
     if(employeeForm){
-      this.http.post(this.api, employeeForm).subscribe(res => {
-        console.log(res)
-      })
+      return this.http.post(this.api, employeeForm)
+    }
+    else{
+      return
     }
   }
 
